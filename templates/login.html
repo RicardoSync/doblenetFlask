@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Escobedo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #121212;
+            color: #fff;
+            margin: 0;
+        }
+
+        .login-container {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: #f5f5f5;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container form .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .login-container form .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .login-container form .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background: #2c2c2c;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .login-container form .input-group input:focus {
+            outline: 2px solid #3f51b5;
+        }
+
+        .login-container form button {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background: #3f51b5;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-container form button:hover {
+            background: #303f9f;
+        }
+
+        .login-container .footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .login-container .footer a {
+            color: #3f51b5;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .login-container .footer a:hover {
+            color: #303f9f;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 1.5rem;
+            }
+
+            .login-container h1 {
+                font-size: 1.5rem;
+            }
+
+            .login-container form .input-group input {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Inicio Sesion</h1>
+        <form action="/" method="POST">
+            <div class="input-group">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" placeholder="usuario@doblenet.com" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        
+        <div class="footer">
+            <p>Ricardo Escobedo 2024</p>
+        </div>
+    </div>
+</body>
+</html>
