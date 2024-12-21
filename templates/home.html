@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background: #1e1e1e;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+
+        .summary {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .summary-card {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .summary-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav {
+            background: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        nav li {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: #262626;
+            transition: background 0.3s;
+            font-size: 1rem;
+        }
+
+        nav li:hover {
+            background: #3f51b5;
+        }
+
+        .submenu {
+            display: none;
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+        }
+
+        .submenu li {
+            background: #2a2a2a;
+        }
+
+        nav li.active + .submenu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .summary {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome, User!</h1>
+    </header>
+    <div class="dashboard-container">
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Clients</h3>
+                <p>120</p>
+            </div>
+            <div class="summary-card">
+                <h3>Payments</h3>
+                <p>45</p>
+            </div>
+            <div class="summary-card">
+                <h3>Packages</h3>
+                <p>8</p>
+            </div>
+            <div class="summary-card">
+                <h3>Equipments</h3>
+                <p>32</p>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li onclick="toggleSubmenu(this)">Clients</li>
+                <ul class="submenu">
+                    <li>Add Client</li>
+                    <li>View Clients</li>
+                    <li>Search Client</li>
+                </ul>
+                <li onclick="toggleSubmenu(this)">Payments</li>
+                <ul class="submenu">
+                    <li>Register Payment</li>
+                    <li>View Payments</li>
+                    <li>Search Payments</li>
+                </ul>
+                <li onclick="toggleSubmenu(this)">Packages</li>
+                <ul class="submenu">
+                    <li>Add Package</li>
+                    <li>View Packages</li>
+                </ul>
+                <li onclick="toggleSubmenu(this)">Equipments</li>
+                <ul class="submenu">
+                    <li>Add Equipment</li>
+                    <li>View Equipments</li>
+                </ul>
+                <li onclick="toggleSubmenu(this)">Users</li>
+                <ul class="submenu">
+                    <li>Add User</li>
+                    <li>Manage Users</li>
+                </ul>
+                <li onclick="toggleSubmenu(this)">Information</li>
+                <ul class="submenu">
+                    <li>About</li>
+                    <li>Help</li>
+                </ul>
+            </ul>
+        </nav>
+    </div>
+    <script>
+        function toggleSubmenu(element) {
+            const submenus = document.querySelectorAll('.submenu');
+            submenus.forEach(submenu => submenu.previousElementSibling.classList.remove('active'));
+            submenus.forEach(submenu => submenu.style.display = 'none');
+
+            const nextSubmenu = element.nextElementSibling;
+            if (nextSubmenu && nextSubmenu.classList.contains('submenu')) {
+                element.classList.toggle('active');
+                nextSubmenu.style.display = nextSubmenu.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+    </script>
+</body>
+</html>

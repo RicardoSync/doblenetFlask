@@ -12,64 +12,60 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background: #121212;
             color: #fff;
-            margin: 0;
         }
 
         .login-container {
             background: #1e1e1e;
-            padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            padding: 2rem;
             width: 100%;
             max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .login-container h1 {
             text-align: center;
             margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            color: #f5f5f5;
         }
 
-        .login-container form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-container form .input-group {
+        .form-group {
             margin-bottom: 1rem;
         }
 
-        .login-container form .input-group label {
+        .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
-            color: #b0b0b0;
         }
 
-        .login-container form .input-group input {
+        .form-group input {
             width: 100%;
-            padding: 0.8rem;
-            border: none;
+            padding: 0.75rem;
             border-radius: 5px;
-            background: #2c2c2c;
+            border: 1px solid #333;
+            background: #262626;
             color: #fff;
             font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
         }
 
-        .login-container form .input-group input:focus {
-            outline: 2px solid #3f51b5;
+        .form-group input:focus {
+            border-color: #3f51b5;
         }
 
-        .login-container form button {
-            padding: 0.8rem;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
             border: none;
             border-radius: 5px;
             background: #3f51b5;
@@ -79,36 +75,48 @@
             transition: background 0.3s;
         }
 
-        .login-container form button:hover {
-            background: #303f9f;
+        .btn:hover {
+            background: #5c6bc0;
         }
 
-        .login-container .footer {
+        .forgot-password {
             text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
+            margin-top: 1rem;
         }
 
-        .login-container .footer a {
+        .forgot-password a {
             color: #3f51b5;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .login-container .footer a:hover {
-            color: #303f9f;
+        .forgot-password a:hover {
+            color: #5c6bc0;
         }
 
-        @media (max-width: 480px) {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
             .login-container {
                 padding: 1.5rem;
             }
 
-            .login-container h1 {
-                font-size: 1.5rem;
+            .form-group input {
+                padding: 0.5rem;
+                font-size: 0.9rem;
             }
 
-            .login-container form .input-group input {
+            .btn {
+                padding: 0.5rem;
                 font-size: 0.9rem;
             }
         }
@@ -116,22 +124,21 @@
 </head>
 <body>
     <div class="login-container">
-        <h1>Inicio Sesion</h1>
+        <h1>Credenciales Doblenet</h1>
         <form action="/" method="POST">
-            <div class="input-group">
-                <label for="username">Usuario</label>
+            <div class="form-group">
+                <label for="Usuario">Username</label>
                 <input type="text" id="username" name="username" placeholder="usuario@doblenet.com" required>
             </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <div class="form-group">
+                <label for="Contrasenia">Password</label>
+                <input type="password" id="password" name="password" placeholder="Tu clave" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" class="btn">Inicio Sesion</button>
+            <div class="forgot-password">
+                <p>Ricardo Escobedo 2024</p>
+            </div>
         </form>
-        
-        <div class="footer">
-            <p>Ricardo Escobedo 2024</p>
-        </div>
     </div>
 </body>
 </html>

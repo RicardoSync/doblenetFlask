@@ -1,37 +1,34 @@
-from mysql.connector import connect, Error
+import mysql.connector 
 
-def conexion():
+def conexionPrincipal():
     try:
-        conn = connect(
-            host="localhost",
-            user="dni",
-            password="MinuzaFea265/",
-            database="userDenisse"
+        conn = mysql.connector.connect(
+            host="200.234.224.17",
+            port=3389,
+            user="ciso",
+            password="ciso",
+            database="usuarios_wisp"
         )
         return conn
     
-    except Error as err:
-        print(f"No podemos conectar al sercidor {err}")
+    except mysql.connector.Error as err:
+        print(f"No podemos establecer la conexion {err}")
 
-def loginUsername(username, password):
+
+def inicioUsuario(username, password):
     try:
-        motor = conexion()
-        cursor = motor.cursor()
-        sql = """
-        SELECT data FROM usuarios WHERE username = %s AND password = %s
-        """
+        search = conexionPrincipal()
+        cursor = search.cursor()
+        sql = "SELECT data FROM usuarios WHERE username = %s AND password = %s"
         valores = (username, password)
         cursor.execute(sql, valores)
-        resultado = cursor.fetchone()  # Obtiene solo el primer resultado, no toda la lista
-        
-        cursor.close()
-        motor.close()
 
-        # Retorna el valor de 'database' si existe, de lo contrario, None
-        if resultado:
-            return resultado[0]
-        else:
-            return None
-    except Error as err:
-        print(f"Error durante la consulta: {err}")
-        return None
+        resultado = cursor.fetchone()
+
+        cursor.close()
+        search.close()
+
+        return resultado
+    except mysql.connector.Error as err:
+        print(f"No podemos hacer la consulta {err}")
+        return "Busqueda Fallida"
