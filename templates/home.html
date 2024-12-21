@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>WisPro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,30 +16,90 @@
             font-family: 'Arial', sans-serif;
             background: #121212;
             color: #fff;
+            display: flex;
             height: 100vh;
+        }
+
+        /* Barra lateral */
+        .sidebar {
+            width: 220px;
+            background: #1e1e1e;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            justify-content: flex-start;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 4px 0 8px rgba(0, 0, 0, 0.3);
+            transition: width 0.3s;
+        }
+
+        .sidebar h2 {
+            font-size: 1.8rem;
+            color: #f44336;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .sidebar img {
+            width: 120px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sidebar li {
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #262626;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #fff;
+            transition: background 0.3s, padding-left 0.3s;
+        }
+
+        .sidebar li:hover {
+            background: #3f51b5;
+            padding-left: 1.5rem;
+        }
+
+        .sidebar li i {
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        /* Panel principal */
+        .main-content {
+            margin-left: 220px;
+            padding: 2rem;
+            width: 100%;
+            overflow-y: auto;
+            transition: margin-left 0.3s;
         }
 
         header {
             background: #1e1e1e;
-            padding: 1rem;
+            padding: 1.5rem;
             text-align: center;
+            margin-bottom: 2rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
 
         header h1 {
-            font-size: 1.5rem;
-        }
-
-        .dashboard-container {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            padding: 1rem;
-            gap: 1rem;
-            overflow-y: auto;
+            font-size: 2rem;
+            color: #fff;
         }
 
         .summary {
@@ -46,161 +107,132 @@
             gap: 1rem;
             flex-wrap: wrap;
             justify-content: space-between;
+            margin-bottom: 2rem;
         }
 
         .summary-card {
             background: #1e1e1e;
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 2rem;
+            border-radius: 12px;
             flex: 1;
-            min-width: 150px;
+            min-width: 220px;
             text-align: center;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            animation: fadeIn 1s ease-in-out;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-10px);
+            background-color: #3f51b5;
         }
 
         .summary-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .summary-card p {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
         }
 
-        nav {
+        footer {
             background: #1e1e1e;
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            padding: 1rem;
-            overflow: hidden;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            color: #bbb;
+            border-radius: 10px;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        nav li {
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            background: #262626;
-            transition: background 0.3s;
+        footer p {
             font-size: 1rem;
         }
 
-        nav li:hover {
-            background: #3f51b5;
-        }
-
-        .submenu {
-            display: none;
-            margin-top: 0.5rem;
-            padding-left: 1rem;
-        }
-
-        .submenu li {
-            background: #2a2a2a;
-        }
-
-        nav li.active + .submenu {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        @media (max-width: 800px) {
+            .main-content {
+                margin-left: 0;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
-        @media (max-width: 600px) {
             .summary {
                 flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar {
+                width: 200px;
+                padding: 1rem;
+            }
+
+            .summary-card {
+                min-width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 150px;
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .summary-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .summary-card p {
+                font-size: 1.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome, User!</h1>
-    </header>
-    <div class="dashboard-container">
+    <div class="sidebar">
+        <img src="logo.png" alt="Logo">
+        <h2>WisPro 0.2</h2>
+        <ul>
+            <li><i class="fas fa-users"></i> Clientes</li>
+            <li><i class="fas fa-credit-card"></i> Pagos</li>
+            <li><i class="fas fa-box"></i> Paquetes</li>
+            <li><i class="fas fa-cogs"></i> Equipos</li>
+            <li><i class="fas fa-users-cog"></i> Usuarios</li>
+            <li><i class="fas fa-info-circle"></i> Información</li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Bienvenido, {{ user }}</h1>
+        </header>
+
         <div class="summary">
             <div class="summary-card">
-                <h3>Clients</h3>
-                <p>120</p>
+                <h3>Clientes</h3>
+                <p>{{ numeroClientes }}</p>
             </div>
             <div class="summary-card">
-                <h3>Payments</h3>
-                <p>45</p>
+                <h3>Pagos</h3>
+                <p>{{ numeroPagos }}</p>
             </div>
             <div class="summary-card">
-                <h3>Packages</h3>
-                <p>8</p>
+                <h3>Paquetes</h3>
+                <p>{{ numeroPaquetes}}</p>
             </div>
             <div class="summary-card">
-                <h3>Equipments</h3>
-                <p>32</p>
+                <h3>Equipos</h3>
+                <p>{{ numeroEquipos }}</p>
             </div>
         </div>
-        <nav>
-            <ul>
-                <li onclick="toggleSubmenu(this)">Clients</li>
-                <ul class="submenu">
-                    <li>Add Client</li>
-                    <li>View Clients</li>
-                    <li>Search Client</li>
-                </ul>
-                <li onclick="toggleSubmenu(this)">Payments</li>
-                <ul class="submenu">
-                    <li>Register Payment</li>
-                    <li>View Payments</li>
-                    <li>Search Payments</li>
-                </ul>
-                <li onclick="toggleSubmenu(this)">Packages</li>
-                <ul class="submenu">
-                    <li>Add Package</li>
-                    <li>View Packages</li>
-                </ul>
-                <li onclick="toggleSubmenu(this)">Equipments</li>
-                <ul class="submenu">
-                    <li>Add Equipment</li>
-                    <li>View Equipments</li>
-                </ul>
-                <li onclick="toggleSubmenu(this)">Users</li>
-                <ul class="submenu">
-                    <li>Add User</li>
-                    <li>Manage Users</li>
-                </ul>
-                <li onclick="toggleSubmenu(this)">Information</li>
-                <ul class="submenu">
-                    <li>About</li>
-                    <li>Help</li>
-                </ul>
-            </ul>
-        </nav>
-    </div>
-    <script>
-        function toggleSubmenu(element) {
-            const submenus = document.querySelectorAll('.submenu');
-            submenus.forEach(submenu => submenu.previousElementSibling.classList.remove('active'));
-            submenus.forEach(submenu => submenu.style.display = 'none');
 
-            const nextSubmenu = element.nextElementSibling;
-            if (nextSubmenu && nextSubmenu.classList.contains('submenu')) {
-                element.classList.toggle('active');
-                nextSubmenu.style.display = nextSubmenu.style.display === 'block' ? 'none' : 'block';
-            }
-        }
-    </script>
+        <footer>
+            <p>&copy; 2024 WisPro. Todos los derechos reservados.</p>
+            <p>Base de datos {{ db }}</p>
+        </footer>
+    </div>
 </body>
 </html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Paquete</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-content {
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            background: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .form-container h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: #333;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 1rem;
+            background: #f44336;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background: #ff5722;
+        }
+
+        .form-container .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .form-container .nav-buttons a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: #f44336;
+            transition: color 0.3s;
+        }
+
+        .form-container .nav-buttons a:hover {
+            color: #ff5722;
+        }
+
+        footer {
+            background: #1e1e1e;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            color: #bbb;
+            border-radius: 10px;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 800px) {
+            .main-content {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-container input {
+                font-size: 0.9rem;
+            }
+
+            .form-container button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <header>
+        </header>
+
+        <div class="form-container">
+            <h2>Registrar Paquete</h2>
+            <form action="" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre del paquete" required>
+                <input type="text" name="velocidad" placeholder="Velocidad (Mbps)" required>
+                <input type="number" name="precio" placeholder="Precio ($)" required>
+                <button type="submit">Registrar Paquete</button>
+            </form>
+
+            <div class="nav-buttons">
+                <a href="#">Ver Paquetes</a>
+                <a href="#">Regresar a Inicio</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

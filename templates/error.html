@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WisPro</title>
+    <title>Error de Inicio de Sesión</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,7 @@
             color: #fff;
         }
 
-        .login-container {
+        .error-container {
             background: #1e1e1e;
             border-radius: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
@@ -31,35 +31,17 @@
             animation: fadeIn 1s ease-in-out;
         }
 
-        .login-container h1 {
+        .error-container h1 {
             text-align: center;
             margin-bottom: 1.5rem;
+            color: #f44336; /* Rojo para el mensaje de error */
         }
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 5px;
-            border: 1px solid #333;
-            background: #262626;
-            color: #fff;
+        .error-container p {
+            text-align: center;
             font-size: 1rem;
-            outline: none;
-            transition: border 0.3s;
-        }
-
-        .form-group input:focus {
-            border-color: #3f51b5;
+            color: #f44336; /* Rojo */
+            margin-bottom: 1rem;
         }
 
         .btn {
@@ -79,18 +61,18 @@
             background: #5c6bc0;
         }
 
-        .forgot-password {
+        .back-to-login {
             text-align: center;
             margin-top: 1rem;
         }
 
-        .forgot-password a {
+        .back-to-login a {
             color: #3f51b5;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .forgot-password a:hover {
+        .back-to-login a:hover {
             color: #5c6bc0;
         }
 
@@ -106,13 +88,8 @@
         }
 
         @media (max-width: 600px) {
-            .login-container {
+            .error-container {
                 padding: 1.5rem;
-            }
-
-            .form-group input {
-                padding: 0.5rem;
-                font-size: 0.9rem;
             }
 
             .btn {
@@ -123,22 +100,12 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>WisPro</h1>
-        <form action="/" method="POST">
-            <div class="form-group">
-                <label for="Usuario">Username</label>
-                <input type="text" id="username" name="username" placeholder="usuario@wispro.com" required>
-            </div>
-            <div class="form-group">
-                <label for="Contrasenia">Password</label>
-                <input type="password" id="password" name="password" placeholder="Tu clave" required>
-            </div>
-            <button type="submit" class="btn">Inicio Sesion</button>
-            <div class="forgot-password">
-                <p>Ricardo Escobedo 2024</p>
-            </div>
-        </form>
+    <div class="error-container">
+        <h1>Error de Inicio de Sesión</h1>
+        <p>No podemos iniciar sesión con las credenciales proporcionadas. Por favor, verifica tu nombre de usuario y contraseña e inténtalo nuevamente.</p>
+        <button onclick="window.location.href='/'" class="btn">Volver al Inicio</button>
+        <div class="back-to-login">
+        </div>
     </div>
 </body>
 </html>
