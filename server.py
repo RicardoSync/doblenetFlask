@@ -32,3 +32,19 @@ def inicioUsuario(username, password):
     except mysql.connector.Error as err:
         print(f"No podemos hacer la consulta {err}")
         return "Busqueda Fallida"
+    
+
+def servidorPrincipal(db_name):
+    try:
+        conexion = mysql.connector.connect(
+            host="200.234.224.17",
+            port=3389,
+            user="ciso",
+            password="ciso",
+            database=db_name
+        )
+        return conexion
+    except mysql.connector.Error as err:
+        print(f"No podemos establecer conexion con usuario {err}")
+        return None
+    

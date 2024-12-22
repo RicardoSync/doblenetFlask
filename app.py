@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from server import inicioUsuario
+from insertDB import insertarPaquete
+from consulDB import consultarPaquetes
 
 app = Flask(__name__)
 
@@ -30,13 +32,31 @@ def inicioSesion():
 @app.route('/home')
 def home():
     usuario = username
-    return render_template('home.html', user=usuario, db=db_name)
+    return render_template('home.html', user=usuario, db=db_name) #mandamos esas variables al html
 
 
 #aqui vamos a poner las opciones de los paquetes
 @app.route('/paquetes', methods=["POST", "GET"])    
 def paquetes():
-    return render_template('paquetes.html')
+    if request.method == "POST":
+        nombrePaquete = request.form.get("nombre_paquete")
+        velocidadPaquete = request.form.get("velocidad")
+        precioPaquete = request.form.get("precio")
+        data = db_name[0]
+        almacenar = insertarPaquete(nombre=nombrePaquete, velocidad=velocidadPaquete, precio=precioPaquete, db_name=data)
+
+        if almacenar == "Exito":
+            return redirect(url_for('home'))
+        else:
+            return render_template('errorAlmacenamiento.html')
+        
+    data = db_name[0]
+    paquetesAlmacenados = consultarPaquetes(db_name=data)
+    return render_template('paquetes.html', database=data, pkg=paquetesAlmacenados)
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
