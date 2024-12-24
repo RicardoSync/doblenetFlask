@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from server import inicioUsuario
-from insertDB import insertarPaquete
-from consulDB import consultarPaquetes, numeroPaquetes
-from deleteDB import eliminarPaquete
-from updateDB import actualizarPaquete
+from insertDB import insertarPaquete, insertarEquipo
+from consulDB import consultarPaquetes, numeroPaquetes, consultarEquipos
+from deleteDB import eliminarPaquete, deleteEquipo
+from updateDB import actualizarPaquete, actualizarEquipos
 from server import servidorPrincipal
 
 app = Flask(__name__)
@@ -57,7 +57,7 @@ def paquetes():
         almacenar = insertarPaquete(nombre=nombrePaquete, velocidad=velocidadPaquete, precio=precioPaquete, db_name=data)
 
         if almacenar == "Exito":
-            return redirect(url_for('home'))
+            return redirect(url_for('paquetes'))
         else:
             return render_template('errorAlmacenamiento.html')
         
@@ -114,7 +114,72 @@ def actualizar_paquete(id):
 
 
 #--------------------------------------------------------FUNCIONES DE LOS EQUIPOS ----------------------------------------------#
+@app.route('/equipos', methods=["POST", "GET"])    
+def equipos():
+    if request.method == "POST":
+        nombreEquipo = request.form.get("nombreEquipo")
+        modeloEquipo = request.form.get("modeloEquipo")
+        descripcionEquipo = request.form.get("descripcionEquipo")
+        data = db_name[0]
 
+        insertarEquipo(nombre=nombreEquipo, modelo=modeloEquipo, descripcion=descripcionEquipo, db_name=data)
+
+        if insertarEquipo == "Exito":
+            return render_template('equipos')
+        elif insertarEquipo == "Fallo":
+            return render_template('errorGay.html', error_message="Tenemos un problema para almacenar el equipo, intenta nuevamente")
+    
+    data = db_name[0]
+    consultar_Equipos = consultarEquipos(data)
+
+    return render_template('equipos.html', variableEquipos=consultar_Equipos)
+
+
+@app.route('//eliminarEquipo<int:id>', methods=["POST", "GET"])
+
+def eliminarEquipo(id):
+    data = db_name[0]
+    comando_eliminar = deleteEquipo(id=id, db_name=data)
+
+    if comando_eliminar == "Exito":
+        return redirect(url_for('equipos'))
+    else:
+        print("No podemos eliminar el equipo, tenemos un problema")
+        return render_template('errorGay.html', error_message="Tenemos un problema al querer eliminar el equipo, cierra sesion y reintenta")
+
+
+# Cargar el formulario con los datos del paquete
+@app.route('/editar_equipo/<int:id>', methods=["GET"])
+def editar_equipo(id):
+    data = db_name[0]
+    conexion = servidorPrincipal(data)
+    cursor = conexion.cursor()
+    query = "SELECT * FROM equipos WHERE id = %s"
+    cursor.execute(query, (id,))
+    equipos = cursor.fetchone()
+    cursor.close()
+    conexion.close()
+
+    if len(equipos)>0:
+        #return f"Id del equipo {equipos[0]} con nombre {equipos[1]} con modelo {equipos[2]} y descripcion {equipos[3]}"
+        return render_template('editar_equipos.html', equiposHTML=equipos)
+    else:
+        return render_template('errorGay.html', error_message="No podemos realizar la busqueda de ese equipo para poder actualizar. Error 203x001")
+
+# Procesar los cambios en el paquete
+@app.route('/actualizar_equipos/<int:id>', methods=["POST"])
+def actualizar_equipos(id):
+    nombreEquipo = request.form.get("nombre_equipo")
+    modeloEquipo = request.form.get("modelo_equipo")
+    descripcionEquipo = request.form.get("descripcion_equipo")
+
+    data = db_name[0]
+    comando_actualizar = actualizarEquipos(id=id, nombre=nombreEquipo, modelo=modeloEquipo, descripcion=descripcionEquipo, db_name=data)
+
+    if comando_actualizar == "Exito":
+        return redirect(url_for('equipos'))
+    elif comando_actualizar == "Error":
+        return render_template('errorGay.html', error_message="No podemos realizar la actualizacion, intenta mas tarde")
 #--------------------------------------------------------FUNCIONES DE LOS EQUIPOS ----------------------------------------------#
 
 

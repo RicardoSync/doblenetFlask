@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WisPro</title>
+    <!-- Incluye Font Awesome para los iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #fff;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        header {
+            background: #1e1e1e;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: #f5f5f5;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-container form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .form-container input, .form-container button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-container input {
+            background: #262626;
+            color: #fff;
+            width: 200px;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            border: 2px solid #3f51b5;
+        }
+
+        .form-container button {
+            background: #3f51b5;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .form-container button:hover {
+            background: #2c3a9e;
+        }
+
+        .table-container {
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        table th, table td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        table th {
+            background: #262626;
+            color: #f44336;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        table tr:hover {
+            background: #333;
+        }
+
+        table td {
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .icon-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .icon-btn:hover {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <header>
+            <h1>Equipos WisPro</h1>
+        </header>
+
+        <div class="form-container">
+            <form action="/equipos" method="POST">
+                <input type="text" name="nombreEquipo" placeholder="Nombre del Equipo" required>
+                <input type="text" name="modeloEquipo" placeholder="Modelo N410" required>
+                <input type="text" name="descripcionEquipo" placeholder="Descripcion del equipo" required>
+                <button type="submit">Guardar</button>
+                <button type="button" onclick="window.location.href='/home'">Volver al inicio</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Modelo</th>
+                        <th>Descripcion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equipo_array in variableEquipos %}
+                    <tr>
+                        <td>{{ equipo_array[0] }}</td> <!-- Id -->
+                        <td>{{ equipo_array[1] }}</td> <!-- Nombre -->
+                        <td>{{ equipo_array[2] }}</td> <!-- Modelo -->
+                        <td>{{ equipo_array[3] }}</td> <!-- Descripcion -->
+                        <td>
+                            <form action="{{ url_for('eliminarEquipo', id=equipo_array[0]) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="icon-btn">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
+                            </form>
+                            <a href="{{ url_for('editar_equipo', id=equipo_array[0]) }}" class="icon-btn">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+        
+    </div>
+    <p>Modo debug {{ database }}</p>
+
+</body>
+</html>

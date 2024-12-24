@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Página Generica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #121212;
+            color: #fff;
+        }
+
+        .error-container {
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .error-container h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #f44336; /* Rojo para el mensaje de error */
+        }
+
+        .error-container p {
+            text-align: center;
+            font-size: 1rem;
+            color: #f44336; /* Rojo */
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            background: #3f51b5;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #5c6bc0;
+        }
+
+        .back-to-login {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-to-login a {
+            color: #3f51b5;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-to-login a:hover {
+            color: #5c6bc0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .error-container {
+                padding: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>Error</h1>
+        <p>{{ error_message }}</p> <!-- Este texto será dinámico -->
+        <button onclick="window.location.href='{{ redirect_url }}'" class="btn">Volver</button>
+        <div class="back-to-login">
+            <a href="{{ redirect_url }}">Volver al Inicio</a>
+        </div>
+    </div>
+</body>
+</html>
