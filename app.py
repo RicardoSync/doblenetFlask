@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from server import inicioUsuario
-from insertDB import insertarPaquete, insertarEquipo
-from consulDB import consultarPaquetes, numeroPaquetes, consultarEquipos
+from insertDB import insertarPaquete, insertarEquipo, insertarCliente
+from consulDB import consultarPaquetes, numeroPaquetes, consultarEquipos, consultaPaqueteLista
 from deleteDB import eliminarPaquete, deleteEquipo
 from updateDB import actualizarPaquete, actualizarEquipos
 from server import servidorPrincipal
@@ -182,6 +182,33 @@ def actualizar_equipos(id):
         return render_template('errorGay.html', error_message="No podemos realizar la actualizacion, intenta mas tarde")
 #--------------------------------------------------------FUNCIONES DE LOS EQUIPOS ----------------------------------------------#
 
+
+#--------------------------------------------------------FUNCIONES DE LOS CLIENTES ----------------------------------------------#
+@app.route('/clientes', methods=["GET", "POST"])
+def clientes():
+    if request.method == "POST":
+        nombreCliente = request.form.get("nombre")
+        domicilioCliente = request.form.get("domicilio")
+        telefonoCliente = request.form.get("telefono")
+        planCliente = request.form.get("plan")
+        equipoCliente = request.form.get("equipo")
+        data = db_name[0]
+        insertarCliente(
+            nombre=nombreCliente, 
+            domicilio=domicilioCliente, 
+            telefono=telefonoCliente, 
+            plan=planCliente, 
+            equipo=equipoCliente, 
+            db_name=data
+        )
+
+    # Consultar paquetes y equipos desde la base de datos
+    data = db_name[0]
+    #paquetes = consultarPaquetes(db_name=data)  # Obtener paquetes
+    paquetes = consultaPaqueteLista(db_name=data)
+    equipos = consultarEquipos(data)  # Obtener equipos
+
+    return render_template('clientes.html', paquetes=paquetes, equipos=equipos)
 
 if __name__ == '__main__':
     app.run(debug=True)

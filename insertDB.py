@@ -1,4 +1,5 @@
 from server import servidorPrincipal
+from consulDB import buscarPaquete
 
 def insertarPaquete(nombre, velocidad, precio, db_name):
     try:
@@ -35,3 +36,12 @@ def insertarEquipo(nombre, modelo, descripcion, db_name):
     except Exception as err:
         print(f"Tenemos error {err}")
         return "Fallo"
+    
+
+def insertarCliente(nombre, domicilio, telefono, plan, equipo, db_name):
+    #mensualidad la obtenemos el paquete
+    #fecha de instalacion automatica, proximo pago es el numero +31
+    #estado por defecto es activo
+    print(f"hola {nombre, domicilio, telefono, plan, equipo, db_name}")
+    mensualidad = buscarPaquete(db_name=db_name, nombrePaquete=plan)
+    print(f"{mensualidad[0]}")
